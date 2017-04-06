@@ -1,0 +1,24 @@
+{
+    "name": "polus/polus-middleware",
+    "description": "middlewares for polus",
+    "homepage": "https://github.com/polusphp/polus-middleware",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andreas Sundqvist",
+            "email": "andreas@forme.se"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "polus/router": "~1.0",
+        "psr/http-message": "~1.0",
+        "relay/middleware": "~1.0",
+        "polus/polus-interface": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Polus\\Middlewares\\": "src/"
+        }
+    }
+}
