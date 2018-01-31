@@ -5,6 +5,8 @@ namespace Polus\Middleware;
 use Franzl\Middleware\Whoops\FormatNegotiator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 
@@ -19,20 +21,11 @@ class ProductionErrorHandler
         ],
     ];
 
-    /**
-     * Execute the middleware.
-     *
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface      $response
-     * @param callable               $next
-     *
-     * @return ResponseInterface
-     */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            return $next($request, $response);
-        } catch (\Exception $e) {
+            return $handler->handle($request);
+        } catch (\Throwable $e) {
             if (php_sapi_name() === 'cli') {
                 return new HtmlResponse($this->errorTexts['txt']);
             }
