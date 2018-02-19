@@ -2,15 +2,11 @@
 
 namespace Polus\Middleware;
 
-use Http\Factory\Diactoros\StreamFactory;
-use Interop\Http\Factory\ResponseFactoryInterface;
 use Interop\Http\Factory\StreamFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
 
 class HttpError implements MiddlewareInterface
 {
@@ -56,7 +52,7 @@ class HttpError implements MiddlewareInterface
      */
     protected $streamFactory;
 
-    public function __construct(StreamFactory $streamFactory)
+    public function __construct(StreamFactoryInterface $streamFactory)
     {
         $this->streamFactory = $streamFactory;
     }
